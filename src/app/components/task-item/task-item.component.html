@@ -1,0 +1,32 @@
+<div class="task-card" [ngClass]="getPriorityClass()">
+  
+  <div class="task-header">
+    <h4 class="task-title">{{ task.title }}</h4>
+    <span class="task-priority">{{ task.priority | uppercase }}</span>
+  </div>
+
+  <p class="task-description">{{ task.description }}</p>
+
+  <div class="task-meta">
+    <span class="meta-item">📅 Vence: {{ task.dueDate | date:'shortDate' }}</span>
+    <span class="meta-item status-{{ task.status }}">{{ getStatusText() }}</span>
+  </div>
+
+  <div class="task-actions">
+    
+    <button class="btn-edit" [routerLink]="['/tasks/edit', task.id]">
+      Editar
+    </button>
+    
+    <ng-container [ngSwitch]="task.status">
+      <button *ngSwitchCase="'en_progreso'" class="btn-action btn-complete" (click)="toggleStatus('completada')">
+        Completar
+      </button>
+    </ng-container>
+
+    <button class="btn-delete" (click)="confirmDelete()" [disabled]="isDeleting">
+      Eliminar
+    </button>
+
+  </div>
+</div>

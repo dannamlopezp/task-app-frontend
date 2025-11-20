@@ -1,0 +1,82 @@
+<div class="task-form-container">
+    <h2>{{ pageTitle }}</h2>
+
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+
+        <!-- ✅ CAMPO TÍTULO (NUEVO) -->
+        <div class="form-group mb-4">
+            <label for="title" class="font-semibold text-gray-700">Título de la Tarea <span
+                    class="text-red-500">*</span></label>
+            <input id="title" type="text" formControlName="title" placeholder="Ej: Terminar informe semanal"
+                class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched"
+                class="error-message text-sm text-red-600 mt-1">
+                El título es obligatorio y debe ser conciso.
+                </div>
+            </div>
+
+        <!-- ✅ CAMPO DESCRIPCIÓN (NUEVO) -->
+        <div class="form-group mb-4">
+            <label for="description" class="font-semibold text-gray-700">Descripción</label>
+            <textarea id="description" formControlName="description" rows="3"
+                placeholder="Detalles de lo que se debe hacer."
+                class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 resize-none"></textarea>
+            <div *ngIf="taskForm.get('description')?.invalid && taskForm.get('description')?.touched"
+                class="error-message text-sm text-red-600 mt-1">
+                La descripción es obligatoria.
+                </div>
+            </div>
+
+
+        <div class="form-row flex space-x-4 mb-4">
+            <div class="form-group w-1/2">
+                <label for="dueDate" class="font-semibold text-gray-700">Fecha de Vencimiento <span
+                        class="text-red-500">*</span></label>
+                <input id="dueDate" type="date" formControlName="dueDate"
+                    class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                <div *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched"
+                    class="error-message text-sm text-red-600 mt-1">
+                    La fecha es obligatoria.
+                    </div>
+                </div>
+           
+            <div class="form-group w-1/2">
+                <label for="priority" class="font-semibold text-gray-700">Prioridad <span
+                        class="text-red-500">*</span></label>
+                <select id="priority" formControlName="priority"
+                    class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    <option value="alta">Alta</option>
+                    <option value="media">Media</option>
+                    <option value="baja">Baja</option>
+                    </select>
+                <div *ngIf="taskForm.get('priority')?.invalid && taskForm.get('priority')?.touched"
+                    class="error-message text-sm text-red-600 mt-1">
+                    La prioridad es obligatoria.
+                    </div>
+                </div>
+            </div>
+
+        <div class="form-group" *ngIf="isEditMode">
+            <label for="status" class="font-semibold text-gray-700">Estado</label>
+            <select id="status" formControlName="status"
+                class="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                <option value="pendiente">Pendiente</option>
+                <option value="en_progreso">En Progreso</option>
+                <option value="completada">Completada</option>
+                </select>
+            </div>
+
+        <div class="form-actions mt-6 flex justify-end space-x-3">
+            <button type="button"
+                class="btn-cancel bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition duration-150"
+                [routerLink]="['/tasks']">
+                Cancelar
+                </button>
+            <button type="submit" [disabled]="taskForm.invalid"
+                class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition duration-150">
+                {{ isEditMode ? 'Guardar Cambios' : 'Crear Tarea' }}
+                </button>
+            </div>
+       
+    </form>
+</div>
