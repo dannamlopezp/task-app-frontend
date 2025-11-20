@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "deploy": "ngh --dir=dist/task-app-front/browser",
+    "deploy": "ngh --dir=dist/task-app-frontend/browser",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

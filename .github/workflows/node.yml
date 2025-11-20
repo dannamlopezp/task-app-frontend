@@ -30,4 +30,4 @@ jobs:
     - name: Deploy to GitHub Pages
       run: npm run deploy --base-href=/task-app-frontend/
       env:
-        GH_TOKEN: $secrets.GH_TOKEN # Or GITHUB_TOKEN
+        GH_TOKEN: $secrets.GITHUB_TOKEN
