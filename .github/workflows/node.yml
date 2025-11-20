@@ -28,6 +28,6 @@ jobs:
     - run: npm run build
 
     - name: Deploy to GitHub Pages
-      run: ng deploy --base-href=/task-app-frontend/
+      run: npm run deploy --base-href=/task-app-frontend/
       env:
         GH_TOKEN: $secrets.GH_TOKEN # Or GITHUB_TOKEN
