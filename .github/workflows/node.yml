@@ -1,0 +1,35 @@
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm i --legacy-peer-deps
+    - run: ng build --configuration=production
+
+    - name: Deploy to GitHub Pages 
+      uses: angular-schule/github-pages-deploy-action@v1.7.3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        angular_dist_dir: dist/task-app-front/browser
+        branch: gh-pages
